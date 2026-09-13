@@ -46,7 +46,8 @@ concurrency:
 
 permissions:
   contents: read
-
+  pages: write
+  id-token: write
 env:
   # TODO: 替换为你的内容仓。
   CONTENT_REPOSITORY: 5sxh/Shirone-Content
@@ -57,6 +58,9 @@ jobs:
     name: Build and deploy
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     env:
       CI: true
       # 让 content:sync 走「本地目录」模式，内容由下面的 checkout 步骤取得。
@@ -172,12 +176,12 @@ jobs:
 
       # 变体 B：GitHub Pages（需要把顶层 permissions 改为
       # `contents: read` + `pages: write` + `id-token: write`，并配置 environment）
-      # - name: Upload Pages artifact
-      #   uses: actions/upload-pages-artifact@<pinned-sha>
-      #   with:
-      #     path: dist
-      # - name: Deploy to Pages
-      #   uses: actions/deploy-pages@<pinned-sha>
+        - name: Upload Pages artifact
+          uses: actions/upload-pages-artifact@<pinned-sha>
+          with:
+            path: dist
+        - name: Deploy to Pages
+          uses: actions/deploy-pages@<pinned-sha>
 
       # 变体 C：自有服务器（rsync over SSH）
       # - name: Deploy to server
