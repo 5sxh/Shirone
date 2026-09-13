@@ -25,7 +25,7 @@ on:
   workflow_call:
     inputs:
       theme_repository:
-        description: "5sxh/Shirone
+        description: "5sxh/Shirone"
         type: string
         required: true
       theme_ref:
