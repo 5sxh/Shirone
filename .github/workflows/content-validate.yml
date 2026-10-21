@@ -25,7 +25,7 @@ on:
   workflow_call:
     inputs:
       theme_repository:
-        description: "主题（代码）仓，形如 OWNER/REPO"
+        description: "5sxh/Shirone"
         type: string
         required: true
       theme_ref:
